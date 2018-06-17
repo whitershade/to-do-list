@@ -10,7 +10,6 @@ const required = value => (value ? undefined : "Required");
 
 const Component = ({ onSubmit }) => (
   <Form
-    styleName='form'
     onSubmit={onSubmit}
     render={({ handleSubmit, submitting, pristine, values, form: { reset } }) => (
       <form onSubmit={handleSubmit}>
