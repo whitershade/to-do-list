@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { map } from 'lodash';
+import Todo from '../../Containers/Todos/Todo';
 import AddNewForm from '../../Containers/Todos/New';
 import './Todos.css';
 
@@ -18,13 +19,13 @@ class Todos extends Component {
           </h1>
         </header>
         <AddNewForm />
-        <ul styleName="App-intro">
+        <div styleName="App-intro">
           {
             map(this.props.todos, ({ _id, text }) => {
-              return <li key={ _id }>{ text }</li>
+              return <Todo key={ _id } id={ _id } text={ text } />
             })
           }
-        </ul>
+        </div>
       </div>
     );
   }

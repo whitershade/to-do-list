@@ -1,3 +1,4 @@
+import { omit } from 'lodash';
 import * as types from '../Constants/Todos';
 
 const initialState = {
@@ -35,6 +36,19 @@ export default function (state = initialState, { type, payload }) {
       };
 
     case types.PUSH_ITEM_ERROR:
+      return { ...state, isPushing: false };
+
+    case types.START_DELETE_ITEM:
+      return { ...state, isPushing: true };
+
+    case types.DELETE_ITEM:
+      return {
+        ...state,
+        data: omit(state.data, payload),
+        isPushing: false,
+      };
+
+    case types.DELETE_ITEM_ERROR:
       return { ...state, isPushing: false };
 
     default:

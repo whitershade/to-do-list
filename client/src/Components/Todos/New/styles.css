@@ -1,5 +1,5 @@
 .form {
-  margin: 10px auto;
+  margin: 10px auto 20px;
   display: inline-flex;
   flex-direction: column;
 }
