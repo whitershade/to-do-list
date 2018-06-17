@@ -2,6 +2,7 @@ const express = require('express');
 const { ObjectID } = require('mongodb');
 const { pick } = require('lodash');
 
+require('./config');
 const Todo = require('./models/todo');
 // const User = require('./models/user');
 
