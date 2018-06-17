@@ -6,8 +6,8 @@ const User = mongoose.model('User', {
     type: String,
     required: true,
     trim: true,
-    minlength: 1
-  }
+    minlength: 1,
+  },
 });
 
 
