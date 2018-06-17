@@ -12,7 +12,7 @@ const Component = ({ onSubmit }) => (
   <Form
     onSubmit={onSubmit}
     render={({ handleSubmit, submitting, pristine, values, form: { reset } }) => (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} styleName="form">
         <Field name="text" validate={required}>
           {({ input, meta }) => (
             <div>

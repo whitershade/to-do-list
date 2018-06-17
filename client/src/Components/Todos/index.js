@@ -11,14 +11,14 @@ class Todos extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">
+      <div styleName="App">
+        <header styleName="App-header">
+          <h1 styleName="App-title">
             Welcome to Todo App!
           </h1>
         </header>
         <AddNewForm />
-        <ul className="App-intro">
+        <ul styleName="App-intro">
           {
             map(this.props.todos, ({ _id, text }) => {
               return <li key={ _id }>{ text }</li>
