@@ -16,20 +16,22 @@ const Component = ({ onSubmit }) => (
         <Field name="text" validate={required}>
           {({ input, meta }) => (
             <div>
-              <FormControl>
+              <FormControl styleName="input-wrapper">
                 <TextField
                   label="Text"
                   error={ meta.error && meta.touched  }
                   {...input}
                   placeholder="Enter text"
                 />
-                { meta.error && meta.touched ? <FormHelperText>{ meta.error }</FormHelperText> : null }
+                { meta.error && meta.touched ? <FormHelperText styleName="helper-text">{ meta.error }</FormHelperText> : null }
               </FormControl>
             </div>
           )}
         </Field>
-        <div className="buttons">
+
+        <div styleName="buttons">
           <Button
+            styleName="button"
             type="submit"
             variant="contained"
             color="primary"
@@ -38,6 +40,7 @@ const Component = ({ onSubmit }) => (
             Submit
           </Button>
           <Button
+            styleName="button"
             type="button"
             variant="contained"
             color="secondary"
