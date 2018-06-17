@@ -1,24 +1,11 @@
 {
-  "name": "todo-list",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": {
-    "/api/*": {
-      "target": "http://[::1]:5000"
-    }
-  },
   "dependencies": {
-    "axios": "^0.18.0",
-    "final-form": "^4.8.2",
-    "lodash": "^4.17.10",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-final-form": "^3.6.2",
-    "react-redux": "^5.0.7",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-actions": "^2.4.0",
-    "redux-thunk": "^2.3.0"
+    "react-scripts": "1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
