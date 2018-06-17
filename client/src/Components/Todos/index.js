@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { map } from 'lodash';
+import AddNewForm from '../../Containers/Todos/New';
 import './Todos.css';
 
 
-class App extends Component {
+class Todos extends Component {
   componentDidMount() {
     this.props.loadData();
   }
 
-  render() { 
+  render() {
     return (
       <div className="App">
         <header className="App-header">
@@ -16,10 +17,11 @@ class App extends Component {
             Welcome to Todo App!
           </h1>
         </header>
+        <AddNewForm />
         <ul className="App-intro">
           {
-            map(this.props.todos, ({ text }) => {
-              return <li>{ text }</li>
+            map(this.props.todos, ({ _id, text }) => {
+              return <li key={ _id }>{ text }</li>
             })
           }
         </ul>
@@ -29,4 +31,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default Todos;

@@ -45,8 +45,8 @@ router
 
     newTodo
       .save()
-      .then((doc) => {
-        res.send(doc);
+      .then((todo) => {
+        res.send({ todo });
       })
       .catch((e) => {
         res.status(400).send(e);

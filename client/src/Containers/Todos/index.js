@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { loadItems as loadTodos } from '../Actions/Todos';
-import Component from '../Components/Todos';
+import { loadItems as loadTodos } from '../../Actions/Todos';
+import Component from '../../Components/Todos';
 
 
 const mapStateToProps = ({ todos: { data, isLoading } }) =>

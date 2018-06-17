@@ -1,3 +1,7 @@
 export const START_LOAD_ITEMS = '@TODOS/START_LOAD_ITEMS';
 export const ADD_ITEMS = '@TODOS/ADD_ITEMS';
 export const LOAD_ITEMS_ERROR = '@TODOS/LOAD_ITEMS_ERROR';
+
+export const START_PUSH_ITEM = '@TODOS/START_PUSH_ITEM';
+export const ADD_ITEM = '@TODOS/ADD_ITEM';
+export const PUSH_ITEM_ERROR = '@TODOS/PUSH_ITEM_ERROR';

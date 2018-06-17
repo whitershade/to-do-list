@@ -10,7 +10,7 @@
     "develop": "concurrently \"npm run server\" \"npm run client\"",
     "test": "cross-env NODE_ENV=test mocha **/*.test.js",
     "test-watch": "cross-env nodemon --exec 'npm test'",
-    "build": "npm install --prefix client && npm run build --prefix client && cross-env node index.js", 
+    "build": "npm install --prefix client && npm run build --prefix client && cross-env node index.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "engines": {
