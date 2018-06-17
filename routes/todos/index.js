@@ -11,7 +11,13 @@ router
   .get('/', (req, res) => {
     Todo
       .find()
-      .then((todos) => {
+      .then((todosResponse) => {
+        const todos = {};
+
+        todosResponse.forEach((todo) => {
+          todos[todo._id] = todo;
+        });
+
         res.send({ todos });
       })
       .catch((e) => {

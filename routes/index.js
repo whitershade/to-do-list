@@ -6,7 +6,7 @@ const todos = require('./todos');
 
 const router = express.Router();
 
-router.use('/todos', todos);
+router.use('/api/todos', todos);
 
 if (process.env.NODE_ENV === 'production') {
   router.get('*', (req, res) => {
