@@ -98,10 +98,10 @@ describe('GET /todos/:id', () => {
       .end(done);
   });
 
-  it('should return 404 for non-object ids', (done) => {
+  it('should return 418 for non-object ids', (done) => {
     request(app)
       .get('/todos/333')
-      .expect(404)
+      .expect(418)
       .end(done);
   });
 });
@@ -136,10 +136,10 @@ describe('DELETE /todos/:id', () => {
       .end(done);
   });
 
-  it('should return 404 if object id is invalid', (done) => {
+  it('should return 418 if object id is invalid', (done) => {
     request(app)
       .delete('/todos/333')
-      .expect(404)
+      .expect(418)
       .end(done);
   });
 });
@@ -161,6 +161,13 @@ describe('PATCH /todos/:id', () => {
         expect(res.body.todo.completed).toBe(true);
         expect(typeof res.body.todo.completedAt).toBe('number');
       })
+      .end(done);
+  });
+
+  it('should return 418 if object id is invalid', (done) => {
+    request(app)
+      .patch('/todos/333')
+      .expect(418)
       .end(done);
   });
 
