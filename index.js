@@ -13,7 +13,17 @@ const port = process.env.PORT || 3000;
 app.post('/todos', (req, res) => {
  const todo = new Todo({
    text: req.body.text
- })
+ });
+
+ todo
+   .save()
+   .then((doc) => {
+     res.send(doc);
+   })
+   .catch((e) => {
+     res.status(400).send(e);
+   });
+ });
 
  app.get('/todos', (req, res) => {
    Todo
@@ -25,16 +35,6 @@ app.post('/todos', (req, res) => {
       res.status(400).send(e);
    })
  })
-
- todo
-  .save()
-  .then((doc) => {
-    res.send(doc);
-  })
-  .catch((e) => {
-    res.status(400).send(e);
-  });
-});
 
 app.get('/todos/:id', (req, res) => {
   const id = req.params.id;
