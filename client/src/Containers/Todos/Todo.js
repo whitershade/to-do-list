@@ -8,7 +8,7 @@ import Component from '../../Components/Todos/Todo';
 
 const mapDispatchToProps = dispatch => ({
   deleteTodo: (id) => () => dispatch(destroyTodo(id)),
-  updateTodo: (id, attrs) => () => dispatch(updateTodo(id, attrs))
+  updateTodo: (id, attrs) => dispatch(updateTodo(id, attrs))
 });
 
 
