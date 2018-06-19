@@ -1,0 +1,7 @@
+:root {
+  --white-color: white;
+  --green-color: #C6FF00;
+
+  --todo-uncompleted-bg-color: var(--white-color);
+  --todo-completed-bg-color: var(--green-color);
+}

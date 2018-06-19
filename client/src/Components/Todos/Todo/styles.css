@@ -6,10 +6,10 @@
   transition: background-color .3s ease;
 }
 
-.card.completed {
-  background-color: #C6FF00;
+.card.uncompleted {
+  background-color: var(--todo-uncompleted-bg-color);
 }
 
-.card.uncompleted {
-  background-color: white;
+.card.completed {
+  background-color: var(--todo-completed-bg-color);
 }

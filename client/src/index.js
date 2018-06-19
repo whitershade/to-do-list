@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import getStore from './getStore';
 import Todos from './Containers/Todos';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+import './Styles/main.css';
+import './Styles/variables.css';
 
 
 const store = getStore();
