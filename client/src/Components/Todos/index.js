@@ -21,9 +21,14 @@ class Todos extends Component {
         <AddNewForm />
         <div styleName="App-intro">
           {
-            map(this.props.todos, ({ _id, text }) => {
-              return <Todo key={ _id } id={ _id } text={ text } />
-            })
+            map(this.props.todos, ({ _id, text, completed }) => (
+              <Todo
+                key={ _id }
+                id={ _id }
+                text={ text }
+                completed={ completed }
+              />
+            ))
           }
         </div>
       </div>

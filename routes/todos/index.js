@@ -67,6 +67,7 @@ router
   })
 
   .patch('/:id', checkIsIdValid, checkIfTodoCompleted, (req, res) => {
+    console.log(req.body);
     const body = pick(req.body, ['text', 'completed', 'completedAt']);
 
     Todo

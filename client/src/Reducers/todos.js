@@ -23,6 +23,8 @@ export default function (state = initialState, { type, payload }) {
       return { ...state, isLoading: false };
 
     case types.START_PUSH_ITEM:
+    case types.START_DELETE_ITEM:
+    case types.START_UPDATE_ITEM:
       return { ...state, isPushing: true };
 
     case types.ADD_ITEM:
@@ -36,10 +38,9 @@ export default function (state = initialState, { type, payload }) {
       };
 
     case types.PUSH_ITEM_ERROR:
+    case types.DELETE_ITEM_ERROR:
+    case types.UPDATE_ITEM_ERROR:
       return { ...state, isPushing: false };
-
-    case types.START_DELETE_ITEM:
-      return { ...state, isPushing: true };
 
     case types.DELETE_ITEM:
       return {
@@ -48,8 +49,15 @@ export default function (state = initialState, { type, payload }) {
         isPushing: false,
       };
 
-    case types.DELETE_ITEM_ERROR:
-      return { ...state, isPushing: false };
+    case types.UPDATE_ITEM:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [payload._id]: { ...state.data[payload._id], ...payload },
+        },
+        isPushing: false,
+      };
 
     default:
       return state;

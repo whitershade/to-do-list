@@ -15,6 +15,10 @@ export const startDeleteItem = createAction(types.START_DELETE_ITEM);
 export const deleteItem = createAction(types.DELETE_ITEM);
 export const deleteItemError = createAction(types.DELETE_ITEM_ERROR);
 
+export const startUpdateItem = createAction(types.START_UPDATE_ITEM);
+export const updateItem = createAction(types.UPDATE_ITEM);
+export const updateItemError = createAction(types.UPDATE_ITEM_ERROR);
+
 export const loadItems = () => async (dispatch) => {
   dispatch(startLoadItems());
 
@@ -48,5 +52,17 @@ export const destroyItem = (id) => async (dispatch) => {
     dispatch(deleteItem(_id));
   } catch (e) {
     dispatch(deleteItemError());
+  }
+}
+
+export const patchItem = (id, attrs) => async (dispatch) => {
+  dispatch(startUpdateItem());
+
+  try {
+    const { data: { todo } } = await axios.patch(`/api/todos/${id}`, attrs);
+
+    dispatch(updateItem(todo));
+  } catch (e) {
+    dispatch(updateItemError());
   }
 }

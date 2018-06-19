@@ -9,10 +9,10 @@ import './styles.css';
 
 class Todo extends Component {
   render() {
-    const { text, deleteTodo, id } = this.props;
+    const { text, id, completed,  deleteTodo, updateTodo } = this.props;
 
     return (
-      <Card styleName="card">
+      <Card styleName={ `card ${completed ? 'completed' : 'uncompleted'}` }>
          <CardContent>
            <Typography color="textSecondary">
               So what to do?
@@ -25,6 +25,12 @@ class Todo extends Component {
            </Typography>
          </CardContent>
          <CardActions>
+           <Button
+            size="small"
+            color="primary"
+            onClick={ updateTodo(id, { completed: !completed }) }>
+              Mark as { completed ? 'undone' : 'done' }
+            </Button>
            <Button
             size="small"
             color="secondary"
