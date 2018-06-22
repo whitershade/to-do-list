@@ -4,12 +4,12 @@ import * as types from '../Constants/Todos';
 
 
 export const startLoadItems = createAction(types.START_LOAD_ITEMS);
-export const addItems = createAction(types.ADD_ITEMS);
+export const addItems = createAction(types.ADD_ITEMS, (data) => data);
 export const loadItemsError = createAction(types.LOAD_ITEMS_ERROR);
 
-export const startPushItem = createAction(types.START_PUSH_ITEM);
+export const startAddItem = createAction(types.START_ADD_ITEM);
 export const addItem = createAction(types.ADD_ITEM);
-export const pushItemError = createAction(types.PUSH_ITEM_ERROR);
+export const addItemError = createAction(types.ADD_ITEM_ERROR);
 
 export const startDeleteItem = createAction(types.START_DELETE_ITEM);
 export const deleteItem = createAction(types.DELETE_ITEM);
@@ -32,14 +32,14 @@ export const loadItems = () => async (dispatch) => {
 };
 
 export const createItem = values => async (dispatch) => {
-  dispatch(startPushItem());
+  dispatch(startAddItem());
 
   try {
     const { data: todo } = await axios.post('/api/todos', values);
 
     dispatch(addItem(todo));
   } catch (e) {
-    dispatch(loadItemsError());
+    dispatch(addItemError());
   }
 };
 
