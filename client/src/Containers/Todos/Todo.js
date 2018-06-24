@@ -6,10 +6,14 @@ import {
 import Component from '../../Components/Todos/Todo';
 
 
+const mapStateToProps = (state) => ({
+  isLoading: state.isLoading
+});
+
 const mapDispatchToProps = dispatch => ({
   deleteTodo: (id) => () => dispatch(destroyTodo(id)),
   updateTodo: (id, attrs) => dispatch(updateTodo(id, attrs))
 });
 
 
-export default connect(null, mapDispatchToProps)(Component);
+export default connect(mapStateToProps, mapDispatchToProps)(Component);

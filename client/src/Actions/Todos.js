@@ -59,7 +59,7 @@ export const patchItem = (id, attrs) => async (dispatch) => {
   dispatch(startUpdateItem());
 
   try {
-    const { data: { todo } } = await axios.patch(`/api/todos/${id}`, attrs);
+    const { data: todo } = await axios.patch(`/api/todos/${id}`, attrs);
 
     dispatch(updateItem(todo));
   } catch (e) {
