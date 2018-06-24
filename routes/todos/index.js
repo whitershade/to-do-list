@@ -7,19 +7,19 @@ const middlewares = require('./middlewares');
 const router = express.Router();
 
 router
-  .get('/', contollers.getTodos)
+  .get('/', contollers.getItems)
   .get(
     '/:id',
     middlewares.checkIsIdValid,
-    contollers.getTodo,
+    contollers.getItem,
   )
-  .post('/', contollers.createTodo)
-  .delete('/:id', contollers.deleteTodo)
+  .post('/', contollers.createItem)
+  .delete('/:id', contollers.deleteItem)
   .patch(
     '/:id',
     middlewares.checkIsIdValid,
     middlewares.checkIfTodoCompleted,
-    contollers.updateTodo,
+    contollers.updateItem,
   );
 
 

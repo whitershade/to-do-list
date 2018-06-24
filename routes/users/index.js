@@ -1,15 +1,26 @@
 const express = require('express');
-const { pick } = require('lodash');
 
-const Todo = require('../../models/user');
+
+const contollers = require('./controllers');
+// const middlewares = require('./middlewares');
 
 const router = express.Router();
 
 router
-  .post('/', (req, res) => {
-    const newTodo = new Todo({
-      text: req.body.text,
-    });
-  });
+  // .get('/', contollers.getItems)
+  // .get(
+  //   '/:id',
+  //   middlewares.checkIsIdValid,
+  //   contollers.getItem,
+  // )
+  .post('/', contollers.createItem);
+// .delete('/:id', contollers.deleteItem)
+// .patch(
+//   '/:id',
+//   middlewares.checkIsIdValid,
+//   middlewares.checkIfTodoCompleted,
+//   contollers.updateItem,
+// );
+
 
 module.exports = router;

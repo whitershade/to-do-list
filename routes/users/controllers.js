@@ -1,19 +1,19 @@
 const { pick } = require('lodash');
-const Model = require('../../models/todo');
+const Model = require('../../models/user');
 
 
 const controllers = {
   getItems: (req, res) => {
     Model
       .find()
-      .then((todosResponse) => {
-        const todos = {};
+      .then((itemsResponse) => {
+        const items = {};
 
-        todosResponse.forEach((todo) => {
-          todos[todo._id] = todo;
+        itemsResponse.forEach((item) => {
+          items[item._id] = item;
         });
 
-        res.send({ todos });
+        res.send({ items });
       })
       .catch((e) => {
         res.status(400).send(e);
@@ -22,24 +22,24 @@ const controllers = {
   getItem: (req, res) => {
     Model
       .findById(req.params.id)
-      .then((todo) => {
-        if (!todo) return res.status(404).send();
+      .then((item) => {
+        if (!item) return res.status(404).send();
 
-        res.send({ todo });
+        res.send({ item });
       })
       .catch((e) => {
         res.status(400).send(e);
       });
   },
   createItem: (req, res) => {
-    const newItem = new Model({
-      text: req.body.text,
-    });
+    const body = pick(req.body, ['email', 'password']);
+    const user = new Model(body);
 
-    newItem
+    user
       .save()
-      .then((todo) => {
-        res.send({ todo });
+      .then(item => item.generateAuthToken())
+      .then((token) => {
+        res.header('x-auth', token).send(user);
       })
       .catch((e) => {
         res.status(400).send(e);
@@ -48,24 +48,24 @@ const controllers = {
   deleteItem: (req, res) => {
     Model
       .findByIdAndRemove(req.params.id)
-      .then((todo) => {
-        if (!todo) return res.status(404).send();
+      .then((item) => {
+        if (!item) return res.status(404).send();
 
-        res.send({ todo });
+        res.send({ item });
       })
       .catch((e) => {
         res.status(400).send(e);
       });
   },
-  updateItem: (req, res) => {
+  updateItems: (req, res) => {
     const body = pick(req.body, ['text', 'completed', 'completedAt']);
 
     Model
       .findByIdAndUpdate(req.params.id, { $set: body }, { new: true })
-      .then((todo) => {
-        if (!todo) return res.status(404).send();
+      .then((item) => {
+        if (!item) return res.status(404).send();
 
-        res.send({ todo });
+        res.send({ item });
       })
       .catch((e) => {
         res.status(400).send(e);

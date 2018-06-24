@@ -1,12 +1,11 @@
 const express = require('express');
 const path = require('path');
 
-const todos = require('./todos');
-
 
 const router = express.Router();
 
-router.use('/api/todos', todos);
+router.use('/api/todos', require('./todos'));
+router.use('/api/users', require('./users'));
 
 if (process.env.NODE_ENV === 'production') {
   router.get('*', (req, res) => {
