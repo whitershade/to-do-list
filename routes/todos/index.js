@@ -14,7 +14,11 @@ router
     contollers.getItem,
   )
   .post('/', contollers.createItem)
-  .delete('/:id', contollers.deleteItem)
+  .delete(
+    '/:id',
+    middlewares.checkIsIdValid,
+    contollers.deleteItem,
+  )
   .patch(
     '/:id',
     middlewares.checkIsIdValid,
