@@ -4,19 +4,19 @@ const Model = require('../../models/user');
 
 const controllers = {
   getItems: (req, res) => {
+    const token = req.header('x-auth');
+
+    Model.findByToken(token);
+
     Model
-      .find()
-      .then((itemsResponse) => {
-        const items = {};
+      .findByToken(token)
+      .then((user) => {
+        if (!user) Promise.reject();
 
-        itemsResponse.forEach((item) => {
-          items[item._id] = item;
-        });
-
-        res.send({ items });
+        res.send(user);
       })
       .catch((e) => {
-        res.status(400).send(e);
+        res.status(401).send(e);
       });
   },
   getItem: (req, res) => {

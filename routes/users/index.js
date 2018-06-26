@@ -2,12 +2,12 @@ const express = require('express');
 
 
 const contollers = require('./controllers');
-// const middlewares = require('./middlewares');
+const middlewares = require('./middlewares');
 
 const router = express.Router();
 
 router
-  // .get('/', contollers.getItems)
+  .get('/me', middlewares.authenticate, contollers.getItems)
   // .get(
   //   '/:id',
   //   middlewares.checkIsIdValid,
