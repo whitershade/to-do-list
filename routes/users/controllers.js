@@ -33,15 +33,17 @@ const controllers = {
   },
   createItem: (req, res) => {
     const body = pick(req.body, ['email', 'password']);
-    const user = new Model(body);
+    const User = new Model(body);
 
-    user
+    User
       .save()
-      .then(item => item.generateAuthToken())
+      .then(user => user.generateAuthToken())
       .then((token) => {
-        res.header('x-auth', token).send(user);
+        console.log(User);
+        res.header('x-auth', token).send(User);
       })
       .catch((e) => {
+        console.log(e);
         res.status(400).send(e);
       });
   },

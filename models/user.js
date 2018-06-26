@@ -1,5 +1,6 @@
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const brcypt = require('bcryptjs');
 const { pick } = require('lodash');
 const mongoose = require('../db/mongoose');
 
@@ -53,7 +54,7 @@ UserSchema.methods.generateAuthToken = function generateAuthToken() {
 };
 
 UserSchema.statics.findByToken = function findByToken(token) {
-  const user = this;
+  const User = this;
   let decoded;
 
   try {
@@ -62,12 +63,27 @@ UserSchema.statics.findByToken = function findByToken(token) {
     return Promise.reject();
   }
 
-  return user.findOne({
+  return User.findOne({
     _id: decoded._id,
     'tokens.token': token,
     'tokens.access': 'auth',
   });
 };
+
+UserSchema.pre('save', function preUserSchema(next) {
+  const user = this;
+
+  if (user.isModified('password')) {
+    brcypt.genSalt(10, (saltErr, salt) => {
+      brcypt.hash(user.password, salt, (hashErr, hash) => {
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
 
 
 module.exports = mongoose.model('User', UserSchema);
