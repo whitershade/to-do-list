@@ -39,11 +39,9 @@ const controllers = {
       .save()
       .then(user => user.generateAuthToken())
       .then((token) => {
-        console.log(User);
         res.header('x-auth', token).send(User);
       })
       .catch((e) => {
-        console.log(e);
         res.status(400).send(e);
       });
   },

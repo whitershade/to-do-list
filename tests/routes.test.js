@@ -4,9 +4,13 @@ const { ObjectID } = require('mongodb');
 
 const app = require('../index');
 const Todo = require('../models/todo');
-const { todos, populateTodos } = require('./seed.test');
+const User = require('../models/user');
+const {
+  todos, populateTodos, users, populateUsers,
+} = require('./seed.test');
 
 
+beforeEach(populateUsers);
 beforeEach(populateTodos);
 
 describe('POST /api/todos', () => {
@@ -173,6 +177,83 @@ describe('PATCH /api/todos/:id', () => {
         expect(res.body.todo.completed).toBe(false);
         expect(res.body.todo.completedAt).toBe(null);
       })
+      .end(done);
+  });
+});
+
+
+describe('Get /api/users/me', () => {
+  it('should return user if authenticated', (done) => {
+    request(app)
+      .get('/api/users/me')
+      .set('x-auth', users[0].tokens[0].token)
+      .expect(200)
+      .expect((res) => {
+        expect(res.body._id).toBe(users[0]._id.toHexString());
+        expect(res.body.email).toBe(users[0].email);
+      })
+      .end(done);
+  });
+
+  it('should return 401 if not authenticated', (done) => {
+    request(app)
+      .get('/api/users/me')
+      .expect(401)
+      .expect((res) => {
+        expect(res.body).toEqual({});
+      })
+      .end(done);
+  });
+});
+
+describe('POST /api/users', () => {
+  it('should create a user', (done) => {
+    const email = 'example@example.com';
+    const password = 'very strong password';
+
+    request(app)
+      .post('/api/users')
+      .send({ email, password })
+      .expect(200)
+      .expect((res) => {
+        expect(res.headers['x-auth']).toBeTruthy();
+        expect((res.body._id)).toBeTruthy();
+        expect(res.body.email).toBe(email);
+      })
+      .end((err) => {
+        if (err) return done(err);
+
+        User
+          .findOne({ email })
+          .then((user) => {
+            expect(user).toBeTruthy();
+            expect(String(user.password) === String(password)).toBeFalsy();
+            done();
+          });
+      });
+  });
+
+  it('should return validation errors if request invalid', (done) => {
+    const email = 'not an email';
+    const password = '123';
+
+    request(app)
+      .post('/api/users')
+      .send({ email, password })
+      .expect(400)
+      .end(done);
+  });
+
+  it('should not create user if email in use', (done) => {
+    const password = 'very strong password';
+
+    request(app)
+      .post('/api/users')
+      .send({
+        email: users[0].email,
+        password,
+      })
+      .expect(400)
       .end(done);
   });
 });

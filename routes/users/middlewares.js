@@ -5,8 +5,6 @@ const middlewares = {
   authenticate: (req, res, next) => {
     const token = req.header('x-auth');
 
-    User.findByToken(token);
-
     User
       .findByToken(token)
       .then((user) => {
