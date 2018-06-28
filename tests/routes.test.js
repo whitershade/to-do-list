@@ -3,8 +3,9 @@ const request = require('supertest');
 const { ObjectID } = require('mongodb');
 
 const app = require('../index');
-const Todo = require('../models/todo');
-const User = require('../models/user');
+const Todo = require('../api/todos/model');
+const User = require('../api/users/model');
+
 const {
   todos, populateTodos, users, populateUsers,
 } = require('./seed.test');
@@ -182,7 +183,7 @@ describe('PATCH /api/todos/:id', () => {
 });
 
 
-describe('Get /api/users/me', () => {
+describe('GET /api/users/me', () => {
   it('should return user if authenticated', (done) => {
     request(app)
       .get('/api/users/me')
@@ -259,7 +260,7 @@ describe('POST /api/users', () => {
   });
 });
 
-describe('Post /api/users/login', () => {
+describe('POST /api/users/login', () => {
   it('should login user and return auth token', (done) => {
     request(app)
       .post('/api/users/login')
@@ -307,6 +308,26 @@ describe('Post /api/users/login', () => {
             done();
           })
           .catch(error => done(error));
+      });
+  });
+});
+
+describe('DELETE /api/users/me/token', () => {
+  it('should remove auth token on logout', (done) => {
+    request(app)
+      .delete('/api/users/me/token')
+      .set('x-auth', users[0].tokens[0].token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+
+        User
+          .findById(users[0]._id)
+          .then((user) => {
+            expect(user.tokens.length).toBe(0);
+            done();
+          })
+          .catch(e => done(e));
       });
   });
 });

@@ -1,7 +1,7 @@
 const { ObjectID } = require('mongodb');
 const jwt = require('jsonwebtoken');
-const Todo = require('../models/todo');
-const User = require('../models/user');
+const Todo = require('../api/todos/model');
+const User = require('../api/users/model');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
