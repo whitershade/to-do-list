@@ -53,15 +53,11 @@ const controllers = {
       });
   },
   deleteItem: (req, res) => {
-    UserModel
-      .findByIdAndRemove(req.params.id)
-      .then((item) => {
-        if (!item) return res.status(404).send();
-
-        res.send({ item });
-      })
-      .catch((e) => {
-        res.status(400).send(e);
+    req.user
+      .removeToken(req.token)
+      .then(res.status(200).send())
+      .catch(() => {
+        res.status(400).send();
       });
   },
 };
