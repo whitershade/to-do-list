@@ -1,5 +1,5 @@
 const { pick } = require('lodash');
-const UserModel = require('../../models/user');
+const UserModel = require('./model');
 
 
 const controllers = {

@@ -2,7 +2,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const brcypt = require('bcryptjs');
 const { pick } = require('lodash');
-const mongoose = require('../db/mongoose');
+const mongoose = require('../../db/mongoose');
 
 const { Schema } = mongoose;
 

@@ -1,7 +1,7 @@
 const express = require('express');
 
 require('./config');
-const router = require('./routes');
+const router = require('./api');
 
 
 const app = express();
