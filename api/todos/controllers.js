@@ -5,7 +5,9 @@ const Model = require('./model');
 const controllers = {
   getItems: (req, res) => {
     Model
-      .find()
+      .find({
+        _creator: req.user._id,
+      })
       .then((todosResponse) => {
         const todos = {};
 
@@ -21,7 +23,10 @@ const controllers = {
   },
   getItem: (req, res) => {
     Model
-      .findById(req.params.id)
+      .findOne({
+        _id: req.params.id,
+        _creator: req.user._id,
+      })
       .then((todo) => {
         if (!todo) return res.status(404).send();
 
@@ -34,6 +39,7 @@ const controllers = {
   createItem: (req, res) => {
     const newItem = new Model({
       text: req.body.text,
+      _creator: req.user._id,
     });
 
     newItem
@@ -47,7 +53,10 @@ const controllers = {
   },
   deleteItem: (req, res) => {
     Model
-      .findByIdAndRemove(req.params.id)
+      .findOneAndRemove({
+        _id: req.params.id,
+        _creator: req.user._id,
+      })
       .then((todo) => {
         if (!todo) return res.status(404).send();
 
@@ -61,7 +70,14 @@ const controllers = {
     const body = pick(req.body, ['text', 'completed', 'completedAt']);
 
     Model
-      .findByIdAndUpdate(req.params.id, { $set: body }, { new: true })
+      .findOneAndUpdate(
+        {
+          _id: req.params.id,
+          _creator: req.user._id,
+        },
+        { $set: body },
+        { new: true },
+      )
       .then((todo) => {
         if (!todo) return res.status(404).send();
 

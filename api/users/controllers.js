@@ -6,8 +6,6 @@ const controllers = {
   getMe: (req, res) => {
     const token = req.header('x-auth');
 
-    UserModel.findByToken(token);
-
     UserModel
       .findByToken(token)
       .then((user) => {

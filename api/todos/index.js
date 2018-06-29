@@ -3,24 +3,36 @@ const express = require('express');
 
 const contollers = require('./controllers');
 const middlewares = require('./middlewares');
+const userMiddlewares = require('../users/middlewares');
 
 const router = express.Router();
 
 router
-  .get('/', contollers.getItems)
+  .get(
+    '/',
+    userMiddlewares.authenticate,
+    contollers.getItems,
+  )
   .get(
     '/:id',
+    userMiddlewares.authenticate,
     middlewares.checkIsIdValid,
     contollers.getItem,
   )
-  .post('/', contollers.createItem)
+  .post(
+    '/',
+    userMiddlewares.authenticate,
+    contollers.createItem,
+  )
   .delete(
     '/:id',
+    userMiddlewares.authenticate,
     middlewares.checkIsIdValid,
     contollers.deleteItem,
   )
   .patch(
     '/:id',
+    userMiddlewares.authenticate,
     middlewares.checkIsIdValid,
     middlewares.checkIfTodoCompleted,
     contollers.updateItem,

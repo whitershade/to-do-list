@@ -17,6 +17,10 @@ const TodoSchema = new Schema({
     type: Number,
     default: null,
   },
+  _creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
 }, { timestamps: true });
 
 
